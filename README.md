@@ -210,14 +210,14 @@ Test reports are generated automatically after execution:
 
 The project includes a comprehensive CI/CD pipeline (`.github/workflows/ci.yml`) that:
 
-- ✅ Runs on every push to `main` or `develop` branches
-- ✅ Runs on pull requests
-- ✅ Scheduled daily execution at 2 AM UTC
-- ✅ Manual trigger with test suite selection
-- ✅ Parallel execution of API and UI tests
-- ✅ Automated test result publishing
-- ✅ Artifact upload (reports, screenshots, logs)
-- ✅ Code quality checks
+- Runs on every push to `main` or `develop` branches
+- Runs on pull requests
+- Scheduled daily execution at 2 AM UTC
+- Manual trigger with test suite selection
+- Parallel execution of API and UI tests
+- Automated test result publishing
+- Artifact upload (reports, screenshots, logs)
+- Code quality checks
 
 ### Pipeline Jobs
 
@@ -239,75 +239,6 @@ The project includes a comprehensive CI/CD pipeline (`.github/workflows/ci.yml`)
 # Via GitHub UI
 Actions → CI - Automated Testing Pipeline → Run workflow
 ```
-
-## 🏗 Design Patterns & Best Practices
-
-### Design Patterns Implemented
-
-1. **Page Object Model (POM)**
-   - Encapsulates page elements and interactions
-   - Improves maintainability and reduces duplication
-   - Location: `src/test/java/com/qa/ui/pages/`
-
-2. **Singleton Pattern**
-   - ConfigManager for centralized configuration
-   - Ensures single instance throughout test execution
-
-3. **Factory Pattern**
-   - DriverManager creates browser instances
-   - Supports multiple browsers dynamically
-
-4. **Dependency Injection**
-   - PicoContainer for sharing context between steps
-   - TestContext for state management
-
-### Best Practices
-
-✅ **Separation of Concerns**: Clear separation between tests, page objects, and utilities
-
-✅ **DRY Principle**: Reusable methods and base classes
-
-✅ **Externalized Configuration**: All settings in properties file
-
-✅ **Logging**: Comprehensive logging for debugging
-
-✅ **Error Handling**: Proper exception handling and reporting
-
-✅ **Wait Strategies**: Explicit and implicit waits for stability
-
-✅ **Screenshots on Failure**: Automatic capture for debugging
-
-✅ **Clean Code**: Meaningful names, comments, and documentation
-
-### BDD Approach
-
-- **Gherkin Syntax**: Human-readable test scenarios
-- **Living Documentation**: Feature files serve as documentation
-- **Collaboration**: Business-readable test cases
-- **Traceability**: Clear mapping between requirements and tests
-
-## 📝 Test Coverage
-
-### API Tests
-- ✅ GET all cars
-- ✅ GET specific car by ID
-- ✅ POST create new car
-- ✅ PUT update existing car
-- ✅ DELETE remove car
-- ✅ Negative scenarios (404, 400)
-- ✅ Schema validation
-- ✅ Performance checks
-
-### UI Tests
-- ✅ Page load verification
-- ✅ Car listing display
-- ✅ Search functionality
-- ✅ Filter operations (make, year, model)
-- ✅ Multiple filter combinations
-- ✅ Navigation tests
-- ✅ Responsive design validation
-- ✅ Sorting capabilities
-- ✅ Pagination
 
 ## 🔧 Configuration
 
@@ -339,79 +270,3 @@ screenshot.path=target/screenshots
 ```bash
 mvn test -Dbrowser=firefox -Dheadless=true -Dapi.timeout=60000
 ```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is created for QA assessment purposes.
-
-## 👤 Author
-
-**Senior QA Automation Engineer Candidate**
-
-## 📞 Support
-
-For questions or issues, please open an issue in the GitHub repository.
-
----
-
-## 🎓 Key Highlights for Presentation
-
-### Architecture Decisions
-
-1. **Why Cucumber BDD?**
-   - Enables collaboration between technical and non-technical stakeholders
-   - Living documentation that stays in sync with code
-   - Supports shift-left testing approach
-
-2. **Why REST Assured for API Testing?**
-   - Fluent and readable API
-   - Built-in JSON/XML parsing
-   - Comprehensive assertion library
-   - Easy schema validation
-
-3. **Why Selenium WebDriver?**
-   - Industry standard for UI automation
-   - Cross-browser compatibility
-   - Strong community support
-   - Integrates well with Cucumber
-
-4. **Why Page Object Model?**
-   - Improves code maintainability
-   - Reduces code duplication
-   - Makes tests more readable
-   - Easier to update when UI changes
-
-5. **Why GitHub Actions?**
-   - Native GitHub integration
-   - Free for public repositories
-   - Easy to configure
-   - Supports parallel execution
-   - Artifact management built-in
-
-### Shift-Left Testing Implementation
-
-- Early API testing in development cycle
-- Automated smoke tests on every commit
-- Fast feedback via CI/CD pipeline
-- Schema validation to catch breaking changes
-- Performance testing integrated in pipeline
-
-### Scalability & Extensibility
-
-- Easy to add new test scenarios (just add feature files)
-- Support for multiple browsers and environments
-- Configurable test execution (tags, suites)
-- Parallel execution capability
-- Cloud execution ready (Selenium Grid, BrowserStack)
-
----
-
-**Happy Testing! 🚀**
