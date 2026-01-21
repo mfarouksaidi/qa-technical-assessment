@@ -1,0 +1,54 @@
+{
+  "cars": [
+    {
+      "make": "Toyota",
+      "model": "Camry",
+      "year": 2023,
+      "color": "Blue",
+      "price": 25000,
+      "mileage": 15000,
+      "transmission": "Automatic",
+      "fuelType": "Petrol"
+    },
+    {
+      "make": "Honda",
+      "model": "Civic",
+      "year": 2022,
+      "color": "Red",
+      "price": 22000,
+      "mileage": 20000,
+      "transmission": "CVT",
+      "fuelType": "Petrol"
+    },
+    {
+      "make": "Tesla",
+      "model": "Model 3",
+      "year": 2024,
+      "color": "White",
+      "price": 45000,
+      "mileage": 5000,
+      "transmission": "Automatic",
+      "fuelType": "Electric"
+    },
+    {
+      "make": "Ford",
+      "model": "Mustang",
+      "year": 2023,
+      "color": "Black",
+      "price": 35000,
+      "mileage": 10000,
+      "transmission": "Manual",
+      "fuelType": "Petrol"
+    },
+    {
+      "make": "BMW",
+      "model": "X5",
+      "year": 2023,
+      "color": "Silver",
+      "price": 55000,
+      "mileage": 8000,
+      "transmission": "Automatic",
+      "fuelType": "Diesel"
+    }
+  ]
+}

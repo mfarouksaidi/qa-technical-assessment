@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Car",
+  "description": "Schema for Car object",
+  "type": "object",
+  "required": ["id", "make", "model"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique identifier for the car"
+    },
+    "make": {
+      "type": "string",
+      "description": "Car manufacturer",
+      "minLength": 1
+    },
+    "model": {
+      "type": "string",
+      "description": "Car model name",
+      "minLength": 1
+    },
+    "year": {
+      "type": "integer",
+      "description": "Manufacturing year",
+      "minimum": 1900,
+      "maximum": 2100
+    },
+    "color": {
+      "type": "string",
+      "description": "Car color"
+    },
+    "price": {
+      "type": "number",
+      "description": "Car price",
+      "minimum": 0
+    },
+    "mileage": {
+      "type": "integer",
+      "description": "Car mileage in miles/km",
+      "minimum": 0
+    },
+    "transmission": {
+      "type": "string",
+      "description": "Transmission type",
+      "enum": ["Manual", "Automatic", "CVT", "Semi-Automatic"]
+    },
+    "fuelType": {
+      "type": "string",
+      "description": "Fuel type",
+      "enum": ["Petrol", "Diesel", "Electric", "Hybrid", "CNG", "LPG"]
+    }
+  }
+}

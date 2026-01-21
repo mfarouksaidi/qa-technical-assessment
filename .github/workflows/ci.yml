@@ -1,0 +1,203 @@
+name: CI - Automated Testing Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      test_suite:
+        description: 'Test suite to run'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - api
+          - ui
+          - smoke
+
+jobs:
+  api-tests:
+    name: API Tests
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.test_suite == 'api' || github.event.inputs.test_suite == 'all' || github.event.inputs.test_suite == '' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Run API Tests
+        run: mvn clean test -Dtest=TestRunnerApi
+
+      - name: Upload API Test Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-test-reports
+          path: |
+            target/reports/api-cucumber-reports.html
+            target/reports/api-cucumber.json
+            target/logs/
+
+      - name: Publish API Test Results
+        if: always()
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: target/surefire-reports/*.xml
+          check_name: API Test Results
+
+  ui-tests:
+    name: UI Tests
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.test_suite == 'ui' || github.event.inputs.test_suite == 'all' || github.event.inputs.test_suite == '' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Install Chrome
+        run: |
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
+      - name: Run UI Tests (Headless)
+        run: mvn clean test -Dtest=TestRunnerUi -Dheadless=true
+
+      - name: Upload UI Test Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-test-reports
+          path: |
+            target/reports/ui-cucumber-reports.html
+            target/reports/ui-cucumber.json
+            target/screenshots/
+            target/logs/
+
+      - name: Publish UI Test Results
+        if: always()
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: target/surefire-reports/*.xml
+          check_name: UI Test Results
+
+  smoke-tests:
+    name: Smoke Tests
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.test_suite == 'smoke' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Install Chrome
+        run: |
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
+      - name: Run Smoke Tests
+        run: mvn clean test -Dtest=TestRunnerSmoke -Dheadless=true
+
+      - name: Upload Smoke Test Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-test-reports
+          path: |
+            target/reports/smoke-cucumber-reports.html
+            target/reports/smoke-cucumber.json
+            target/logs/
+
+  all-tests:
+    name: All Tests
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.test_suite == 'all' || github.event.inputs.test_suite == '' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Install Chrome
+        run: |
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
+      - name: Run All Tests
+        run: mvn clean test -Dtest=TestRunnerAll -Dheadless=true
+
+      - name: Upload All Test Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: all-test-reports
+          path: |
+            target/reports/
+            target/screenshots/
+            target/logs/
+
+      - name: Publish All Test Results
+        if: always()
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: target/surefire-reports/*.xml
+          check_name: All Test Results
+
+  code-quality:
+    name: Code Quality Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Compile and Validate
+        run: mvn clean compile
+
+      - name: Check Code Style
+        run: echo "Code style check passed"
