@@ -4,7 +4,7 @@
 
 A comprehensive BDD (Behavior-Driven Development) automation framework using Java, Cucumber, Selenium, and REST Assured for testing web applications and APIs.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Project Overview](#project-overview)
 - [System Under Test](#system-under-test)
@@ -17,7 +17,7 @@ A comprehensive BDD (Behavior-Driven Development) automation framework using Jav
 - [Design Patterns & Best Practices](#design-patterns--best-practices)
 - [Contributing](#contributing)
 
-## 🎯 Project Overview
+## Project Overview
 
 This project demonstrates a professional-grade test automation framework that covers:
 
@@ -28,7 +28,7 @@ This project demonstrates a professional-grade test automation framework that co
 - **Design Patterns**: Page Object Model, Singleton, Factory patterns
 - **Shift-Left Testing**: Early integration of testing in development lifecycle
 
-## 🌐 System Under Test
+## System Under Test
 
 ### Web UI
 - **URL**: https://practice.expandtesting.com/cars
@@ -39,7 +39,7 @@ This project demonstrates a professional-grade test automation framework that co
 - **Documentation**: https://practice.expandtesting.com/api/api-docs/
 - **Domain**: Cars API endpoints
 
-## 🛠 Technology Stack
+## Technology Stack
 
 | Component | Technology | Version |
 |-----------|-----------|---------|
@@ -55,7 +55,7 @@ This project demonstrates a professional-grade test automation framework that co
 | JSON Processing | Jackson | 2.16.1 |
 | CI/CD | GitHub Actions | - |
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 QA-techmical-assessment/
@@ -106,7 +106,7 @@ QA-techmical-assessment/
 └── README.md                          # This file
 ```
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 ### Prerequisites
 
@@ -142,7 +142,7 @@ QA-techmical-assessment/
    - Timeouts
    - Base URLs
 
-## ▶️ Running Tests
+## Running Tests
 
 ### Run All Tests
 ```bash
@@ -184,7 +184,7 @@ mvn clean test -Dcucumber.filter.tags="@api and @smoke"
 1. Right-click on any test runner class (e.g., `TestRunnerAll.java`)
 2. Select "Run As > JUnit Test"
 
-## 📊 Test Reporting
+## Test Reporting
 
 Test reports are generated automatically after execution:
 
@@ -204,7 +204,7 @@ Test reports are generated automatically after execution:
 - **Location**: `target/logs/test-execution.log`
 - **Level**: Configurable in `logback.xml`
 
-## 🔄 CI/CD Integration
+## CI/CD Integration
 
 ### GitHub Actions Pipeline
 
@@ -237,10 +237,10 @@ The project includes a comprehensive CI/CD pipeline (`.github/workflows/ci.yml`)
 **Manual Trigger:**
 ```bash
 # Via GitHub UI
-Actions → CI - Automated Testing Pipeline → Run workflow
+Actions -> CI - Automated Testing Pipeline -> Run workflow
 ```
 
-## 🔧 Configuration
+## Configuration
 
 ### config.properties
 

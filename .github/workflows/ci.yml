@@ -21,6 +21,12 @@ on:
           - ui
           - smoke
 
+permissions:
+  checks: write
+  pull-requests: write
+  contents: read
+
+
 jobs:
   api-tests:
     name: API Tests
